@@ -521,7 +521,7 @@ Disassembly of section .entry:
     movhi r2, %hi(NIOS2_ICACHE_SIZE)
 #else
     movui r2, NIOS2_ICACHE_SIZE
-  800000:	00900014 	movui	r2,16384
+  800000:	00880014 	movui	r2,8192
 #endif
 
 0:
@@ -846,7 +846,7 @@ Disassembly of section .text:
     movhi r2, %hi(NIOS2_DCACHE_SIZE)
 #else
     movui r2, NIOS2_DCACHE_SIZE
-  8001b8:	00880014 	movui	r2,8192
+  8001b8:	00900014 	movui	r2,16384
 #endif
 
 0:
@@ -16158,7 +16158,7 @@ void alt_dcache_flush_all (void)
   80cd58:	10800804 	addi	r2,r2,32
   80cd5c:	e0bfff15 	stw	r2,-4(fp)
   80cd60:	e0bfff17 	ldw	r2,-4(fp)
-  80cd64:	10880030 	cmpltui	r2,r2,8192
+  80cd64:	10900030 	cmpltui	r2,r2,16384
   80cd68:	103ff81e 	bne	r2,zero,80cd4c <alt_dcache_flush_all+0x14>
   { 
     __asm__ volatile ("flushd (%0)" :: "r" (i));
@@ -16468,7 +16468,7 @@ void alt_icache_flush_all (void)
 #if NIOS2_ICACHE_SIZE > 0
   alt_icache_flush (0, NIOS2_ICACHE_SIZE);
   80cffc:	0009883a 	mov	r4,zero
-  80d000:	01500004 	movi	r5,16384
+  80d000:	01480004 	movi	r5,8192
   80d004:	080d9780 	call	80d978 <alt_icache_flush>
 #endif
 }
@@ -17553,11 +17553,11 @@ void alt_icache_flush (void* start, alt_u32 len)
  
   if (len > NIOS2_ICACHE_SIZE)
   80d98c:	e0bfff17 	ldw	r2,-4(fp)
-  80d990:	10900070 	cmpltui	r2,r2,16385
+  80d990:	10880070 	cmpltui	r2,r2,8193
   80d994:	1000021e 	bne	r2,zero,80d9a0 <alt_icache_flush+0x28>
   {
     len = NIOS2_ICACHE_SIZE;
-  80d998:	00900004 	movi	r2,16384
+  80d998:	00880004 	movi	r2,8192
   80d99c:	e0bfff15 	stw	r2,-4(fp)
   }
 

@@ -316,59 +316,11 @@
          type = "int";
       }
    }
-   element Keys.s1
+   element hex2.s1
    {
       datum baseAddress
       {
-         value = "17314928";
-         type = "long";
-      }
-   }
-   element leds.s1
-   {
-      datum baseAddress
-      {
-         value = "17314896";
-         type = "long";
-      }
-   }
-   element hex1.s1
-   {
-      datum baseAddress
-      {
-         value = "17315008";
-         type = "long";
-      }
-   }
-   element sdram.s1
-   {
-      datum baseAddress
-      {
-         value = "8388608";
-         type = "long";
-      }
-   }
-   element LEDR.s1
-   {
-      datum baseAddress
-      {
-         value = "17314976";
-         type = "long";
-      }
-   }
-   element hex4.s1
-   {
-      datum baseAddress
-      {
-         value = "17315056";
-         type = "long";
-      }
-   }
-   element Switches.s1
-   {
-      datum baseAddress
-      {
-         value = "17314912";
+         value = "17315024";
          type = "long";
       }
    }
@@ -380,11 +332,11 @@
          type = "long";
       }
    }
-   element hex3.s1
+   element hex4.s1
    {
       datum baseAddress
       {
-         value = "17315040";
+         value = "17315056";
          type = "long";
       }
    }
@@ -396,11 +348,43 @@
          type = "long";
       }
    }
-   element hex2.s1
+   element leds.s1
    {
       datum baseAddress
       {
-         value = "17315024";
+         value = "17314896";
+         type = "long";
+      }
+   }
+   element LEDR.s1
+   {
+      datum baseAddress
+      {
+         value = "17314976";
+         type = "long";
+      }
+   }
+   element hex3.s1
+   {
+      datum baseAddress
+      {
+         value = "17315040";
+         type = "long";
+      }
+   }
+   element Switches.s1
+   {
+      datum baseAddress
+      {
+         value = "17314912";
+         type = "long";
+      }
+   }
+   element hex1.s1
+   {
+      datum baseAddress
+      {
+         value = "17315008";
          type = "long";
       }
    }
@@ -414,6 +398,22 @@
       datum baseAddress
       {
          value = "17314816";
+         type = "long";
+      }
+   }
+   element sdram.s1
+   {
+      datum baseAddress
+      {
+         value = "8388608";
+         type = "long";
+      }
+   }
+   element Keys.s1
+   {
+      datum baseAddress
+      {
+         value = "17314928";
          type = "long";
       }
    }
@@ -493,7 +493,7 @@
  <parameter name="projectName" value="module2.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1362119246829" />
+ <parameter name="timeStamp" value="1362121285465" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -674,14 +674,14 @@
   <parameter name="mmu_tlbNumWays" value="16" />
   <parameter name="mmu_processIDNumBits" value="8" />
   <parameter name="impl" value="Fast" />
-  <parameter name="icache_size" value="16384" />
+  <parameter name="icache_size" value="8192" />
   <parameter name="icache_ramBlockType" value="Automatic" />
   <parameter name="icache_numTCIM" value="0" />
   <parameter name="icache_burstType" value="None" />
   <parameter name="dcache_bursts" value="false" />
   <parameter name="debug_level" value="Level1" />
   <parameter name="debug_OCIOnchipTrace" value="_128" />
-  <parameter name="dcache_size" value="8192" />
+  <parameter name="dcache_size" value="16384" />
   <parameter name="dcache_ramBlockType" value="Automatic" />
   <parameter name="dcache_numTCDM" value="0" />
   <parameter name="dcache_lineSize" value="32" />
