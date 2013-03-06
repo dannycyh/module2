@@ -1,0 +1,22 @@
+/*
+ * RS232.h
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#ifndef RS232_H_
+#define RS232_H_
+
+#include "Global.h"
+
+struct RS232 {
+	unsigned char data[50];
+	unsigned char parity;
+	struct Queue* sendPackets;
+	struct Queue* receivePackets;
+};
+
+struct RS232 initRS232();
+bool send(void*);
+#endif /* RS232_H_ */

@@ -1,0 +1,19 @@
+
+**** Build of configuration Nios II for project Rss232 ****
+
+make all 
+Info: Building ../Rss232_bsp/
+make --no-print-directory -C ../Rss232_bsp/
+[BSP build complete]
+Info: Compiling ISR_vectors.c to obj/default/ISR_vectors.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Rss232_bsp//HAL/inc -I../Rss232_bsp/ -I../Rss232_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/ISR_vectors.o ISR_vectors.c
+Info: Compiling RS232.c to obj/default/RS232.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Rss232_bsp//HAL/inc -I../Rss232_bsp/ -I../Rss232_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/RS232.o RS232.c
+Info: Linking Rss232.elf
+nios2-elf-g++  -T'../Rss232_bsp//linker.x' -msys-crt0='../Rss232_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../Rss232_bsp/   -Wl,-Map=Rss232.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o Rss232.elf obj/default/Colder.o obj/default/ISR_vectors.o obj/default/Packet.o obj/default/Queue.o obj/default/RS232.o obj/default/hello_world.o -lm 
+nios2-elf-insert Rss232.elf --thread_model hal --cpu_name nios2_processor --qsys true --simulation_enabled false --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name nios_system --quartus_project_dir "C:/Users/danny/Documents/GitHub/Project2" --jdi C:/Users/danny/Documents/GitHub/Project2/module2.jdi --sopcinfo C:/Users/danny/Documents/GitHub/Project2/nios_system.sopcinfo
+Info: (Rss232.elf) 72 KBytes program size (code + initialized data).
+Info:              8112 KBytes free for stack + heap.
+Info: Creating Rss232.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source Rss232.elf >Rss232.objdump
+[Rss232 build complete]

@@ -1,0 +1,13 @@
+/*
+ * Global.h
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#ifndef GLOBAL_H_
+#define GLOBAL_H_
+
+
+extern RS232 com;
+#endif /* GLOBAL_H_ */

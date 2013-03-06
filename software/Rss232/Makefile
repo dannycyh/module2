@@ -142,7 +142,12 @@ ACDS_VERSION := 12.0sp2
 ELF := Rss232.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := hello_world.c
+C_SRCS += hello_world.c
+C_SRCS += Packet.c
+C_SRCS += ISR_vectors.c
+C_SRCS += RS232.c
+C_SRCS += Queue.c
+C_SRCS += Colder.c
 CXX_SRCS :=
 ASM_SRCS :=
 

@@ -1,0 +1,85 @@
+/*
+ * RS232.c
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#include "RS232.h"
+
+alt_alarm alarm;
+struct alt_up_dev up_dev;
+
+/*
+ * Initialization of Serail communication
+ */
+struct RS232 initRS232() {
+	struct RS232 com_local;
+	com_local.receivePackets = initQueue();
+	com_local.sendPackets = initQueue();
+	com_local.ack = 0;
+	com_local.isRdySend = 0;
+	com_local.failReceive = 0;
+	com_local.stateMachine = (enum States*)malloc(sizeof(enum States));
+	*com_local.stateMachine = 0;
+
+	printf("UART Initialization\n");
+	alt_up_rs232_dev* uart = alt_up_rs232_open_dev(RS232_0_NAME);
+	up_dev.RS232_dev = uart;
+
+	printf("Clearing read buffer to start\n");
+	while (alt_up_rs232_get_used_space_in_read_FIFO(uart)) {
+		alt_up_rs232_read_data(uart, &com.data[0], &com.parity);
+	}
+	alt_alarm_start(&alarm, alt_ticks_per_second(), RS232_ISR, (void*)&up_dev);
+
+	printf("UART Initialization finished\n");
+	return com_local;
+}
+
+/*
+ * Send data to the other end
+ * @parm data data to send; must be void*
+ * @parm type type of data to send
+ */
+int send(void* data, enum msgType type) {
+	if(data == NULL) return -1;
+	switch(type) {
+	case STRING:
+		encodeString((char*)data, com.sendPackets);
+		break;
+	case CMD:
+		break;
+	case TXT:
+		break;
+	case AUDIO:
+		break;
+	default:
+		return -1;
+	}
+	return 0;
+}
+/*
+ * send 3 bytes acknowledge to client at sendStats stage; 1 byte: ack + receive/send; 2bytes: length of packets if any
+ */
+unsigned char* sendStats() {
+	unsigned char* cert = (unsigned char*)malloc(sizeof(unsigned char)*3);
+	cert[0] = 0xF0; //set the format as 1111(ack0)(ack1)(send)(receive)
+	cert[1] = 0;
+	cert[2] = 0;
+	if(com.ack == 0)
+		setBit(&cert[0], 3); //111110XX
+	else
+		setBit(&cert[0], 2); //111101XX
+	if(com.isRdySend == 1) {
+		*(com.stateMachine) = waitClient;
+		setBit(&cert[0], 1); //1111XX10
+		cert[1] = (unsigned char)(com.sendPackets->size >> 8);
+		cert[2] = (unsigned char)(com.sendPackets->size & 0x00FF);
+	} else {
+		*(com.stateMachine) = checkClient;
+		setBit(&cert[0], 0); //1111XX01
+	}
+	return cert;
+}
+

@@ -1,0 +1,22 @@
+/*
+ * Packet.h
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#ifndef PACKET_H_
+#define PACKET_H_
+#include "Global.h"
+enum msgType;
+struct Packet {
+	unsigned char* data;
+	int data_size;
+	enum msgType type;
+	int isHead;
+	int isEnd;
+};
+
+struct Packet* initPacket();
+struct Packet* encodeString(char*);
+#endif /* PACKET_H_ */

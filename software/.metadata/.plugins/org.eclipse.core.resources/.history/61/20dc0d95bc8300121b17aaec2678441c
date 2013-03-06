@@ -1,0 +1,22 @@
+/*
+ * Queue.h
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#ifndef QUEUE_H_
+#define QUEUE_H_
+
+struct Queue {
+	int size;
+	Queue* head;
+	Queue* tail;
+	QUeue* next;
+	void* obj;
+};
+
+struct Queue* initQueue();
+void enqueue(struct Queue*, void*);
+void* dequeue(struct Queue*);
+#endif /* QUEUE_H_ */

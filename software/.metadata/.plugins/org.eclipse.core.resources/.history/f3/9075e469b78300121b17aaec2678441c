@@ -1,0 +1,24 @@
+/*
+ * RS232.h
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#ifndef RS232_H_
+#define RS232_H_
+
+#include "altera_up_avalon_rs232.h"
+#include "sys/alt_alarm.h"
+#include "ISR_vectors.h"
+#include "Global.h"
+struct RS232 {
+	unsigned char data[50];
+	unsigned char parity;
+};
+
+extern alt_alarm alarm;
+extern struct alt_up_dev up_dev;
+
+struct RS232 initRS232();
+#endif /* RS232_H_ */

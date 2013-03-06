@@ -1,0 +1,12 @@
+/*
+ * Coder.h
+ *
+ *  Created on: 2013-03-04
+ *      Author: danny
+ */
+
+#ifndef CODER_H_
+#define CODER_H_
+#include "Global.h"
+
+#endif /* CODER_H_ */

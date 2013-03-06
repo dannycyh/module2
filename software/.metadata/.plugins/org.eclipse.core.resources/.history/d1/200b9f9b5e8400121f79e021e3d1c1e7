@@ -1,0 +1,66 @@
+/*
+ * ISR_vectors.c
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#include "ISR_vectors.h"
+
+struct RS232 com;
+
+alt_u32 RS232_ISR(void* up_dev) {
+	if(queue_lock == 1) return alt_ticks_per_second()/100;
+	alt_up_rs232_dev *serial_dev = ((struct alt_up_dev*)up_dev)->RS232_dev;
+	unsigned char* cert;
+	int i;
+	switch(*(com.stateMachine)) {
+	case checkClient:
+		if(alt_up_rs232_get_used_space_in_read_FIFO(serial_dev) != 0) {
+			do {
+				while (alt_up_rs232_get_used_space_in_read_FIFO(serial_dev) == 0);
+				alt_up_rs232_read_data(serial_dev, &com.data[i], &com.parity);
+				printf("%x ", com.data[i]);
+				i++;
+			} while(i < 3);
+			printf("\n");
+			*(com.stateMachine) = sendStates;
+		}
+		return alt_ticks_per_second()/100;
+	case sendStates:
+		cert = sendStats();
+		alt_up_rs232_write_data(serial_dev, cert[0]);
+		alt_up_rs232_write_data(serial_dev, cert[1]);
+		alt_up_rs232_write_data(serial_dev, cert[2]);
+		free(cert);
+		cert = NULL;
+		return alt_ticks_per_second()/100;
+	default:
+		break;
+	}
+	struct Packet* sendingData = dequeue(com.sendPackets);
+	if(sendingData == NULL) return alt_ticks_per_second()/10;
+	for(i = 0; i< sendingData->data_size+HEADERSIZE; i++) {
+		alt_up_rs232_write_data(serial_dev, sendingData->data[i]);
+	}
+	killPacket(sendingData);
+	// Start with the number of bytes in our message
+	//alt_up_rs232_write_data(serial_dev, (unsigned char) strlen(message));
+	// Now send the actual message to the Middleman
+	//for (i = 0; i < strlen(message); i++) {
+	//	alt_up_rs232_write_data(serial_dev, message[i]);
+	//}
+	// Now receive the message from the Middleman
+	while(alt_up_rs232_get_used_space_in_read_FIFO(serial_dev) == 0);
+	// First byte is the number of characters in our message
+	alt_up_rs232_read_data(serial_dev, &com.data[0], &com.parity);
+	while (alt_up_rs232_get_used_space_in_read_FIFO(serial_dev) == 0);
+	alt_up_rs232_read_data(serial_dev, &com.data[1], &com.parity);
+	char buffer;
+	for (i = 0; i < (int)com.data[1]; i++) {
+		while (alt_up_rs232_get_used_space_in_read_FIFO(serial_dev) == 0);
+		alt_up_rs232_read_data(serial_dev, &buffer, &com.parity);
+		printf("%c", buffer);
+	}printf("\n");
+	return alt_ticks_per_second()/10;
+}

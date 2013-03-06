@@ -1,0 +1,28 @@
+/*
+ * Global.h
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#ifndef GLOBAL_H_
+#define GLOBAL_H_
+#include <stdio.h>
+#include <string.h>
+
+#include "altera_up_avalon_rs232.h"
+#include "altera_up_avalon_audio.h"
+
+#include "sys/alt_stdio.h"
+#include "sys/alt_irq.h"
+#include "sys/alt_alarm.h"
+
+#include "ISR_vectors.h"
+#include "RS232.h"
+#include "Queue.h"
+#include "Packet.h"
+
+extern alt_alarm alarm;
+extern struct alt_up_dev up_dev;
+extern struct RS232 com;
+#endif /* GLOBAL_H_ */

@@ -1,0 +1,16 @@
+#include "Global.h"
+
+int main()
+{
+	com = initRS232();
+	char* temp = "This is a book. I am so tired of this.  SIgh.....this really sucks...my life..when can i get over this....i really hate this.........................can i get over this? what should i do? i have no idea....so lost..the real me?";
+
+	while(1) {
+		send((void*)temp, STRING);
+		usleep(100000);
+	//	printf("%s\n", com.data);
+	}
+
+
+	return 0;
+}

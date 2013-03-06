@@ -1,0 +1,79 @@
+/*
+ * Queue.c
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#include "Queue.h"
+int queue_lock = 0;
+
+struct Queue* initQueue() {
+	struct Queue* this = (struct Queue*)malloc(sizeof(struct Queue));
+	this->size = 0;
+	this->tail = NULL;
+	this->head = NULL;
+	return this;
+}
+
+void enqueue(struct Queue* this, void* obj) {
+	if(this == NULL || obj == NULL || obj == this->tail->obj) return;
+	queue_lock = 1;
+	if(this->size == 0) {
+		this->head = (struct QueueData*)malloc(sizeof(struct QueueData));
+		this->head->next = NULL;
+		this->head->prev = NULL;
+		this->head->obj = obj;
+		this->tail = this->head;
+	} else {
+		this->tail->next = (struct QueueData*)malloc(sizeof(struct QueueData));
+		this->tail->next->prev = this->tail;
+		this->tail = this->tail->next;
+		this->tail->obj = obj;
+		this->tail->next = NULL;
+	}
+	this->size++;
+	queue_lock = 0;
+}
+
+void* dequeue(struct Queue* this) {
+	if(this == NULL || this->size <= 0) return NULL;
+	queue_lock = 1;
+	struct QueueData* temp = this->head;
+	void* result = this->head->obj;
+	this->head = this->head->next;
+	temp->obj = NULL;
+	this->head->prev = NULL;
+	temp->next = NULL;
+	free(temp);
+	temp = NULL;
+	if(this->size == 1)
+		this->tail = NULL;
+	this->size--;
+	queue_lock = 0;
+	return result;
+}
+
+void* decode(struct Queue* this) {
+	int len = this->size;
+	struct Packet** packets = (struct Packet**)malloc(sizeof(struct Packet*)*len);
+	i = 0;
+	for(i = 0; i < len; i++) {
+		packets[i] = dequeue(this);
+	}
+	switch(((struct Packet*)this->head->obj)->type) {
+	case STRING:
+		break;
+	case CMD:
+		break;
+	case PLAYLIST:
+		break;
+	default:
+		break;
+	}
+	return NULL;
+}
+
+void* decodeString(struct Packets** p) {
+
+}

@@ -1,0 +1,31 @@
+#include "Global.h"
+
+int main()
+{
+	com = initRS232();
+	char* string = "a test string";
+	enqueue(com.sendPackets, (void*)string);
+	char* s1 = "a second test string";
+	enqueue(com.sendPackets, (void*)s1);
+	char* s2 = "a 3 test string";
+	enqueue(com.sendPackets, (void*)s2);
+	char* s3 = "a 4 test string";
+	enqueue(com.sendPackets, (void*)s3);
+	char* s4 = "a 5 test string";
+	enqueue(com.sendPackets, (void*)s4);
+	char* s5 = "a 6 test string";
+	enqueue(com.sendPackets, (void*)s5);
+	char* s6 = "a 7 test string";
+	enqueue(com.sendPackets, (void*)s6);
+	char* temp;
+	while(1) {
+		temp = (char*)dequeue(com.sendPackets);
+		if(temp != NULL)
+			printf("%s\n", temp);
+
+		//printf("%s\n", com.data);
+	}
+
+
+	return 0;
+}

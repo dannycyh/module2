@@ -1,0 +1,19 @@
+#include "Global.h"
+
+int main()
+{
+	com = initRS232();
+	char* temp = "This is a book.";
+	int i = 0;
+	for(i = 0; i < 100; i++) {
+
+		send((void*)temp, STRING);
+	}
+	while(1) {
+		usleep(100000);
+	//	printf("%s\n", com.data);
+	}
+
+
+	return 0;
+}

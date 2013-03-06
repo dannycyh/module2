@@ -1,0 +1,82 @@
+/*
+ * Colder.c
+ *
+ *  Created on: 2013-03-04
+ *      Author: danny
+ */
+
+#include "Coder.h"
+
+void encodeString(char* str, struct Queue* q) {
+	if(str == NULL || q == NULL) return;
+	int i;
+	int length = strlen(str);
+	char* strBuf = (char*)malloc(sizeof(char)*length);
+	strcpy(strBuf, str);
+	int packet_size = length / 100 + 1;
+	struct Packet* result = (struct Packet*)malloc(sizeof(struct Packet));
+	for(i = 0; i < packet_size; i++) {
+		if(i == packet_size - 1) {
+			result = initPacket(length, (unsigned char*)strBuf);
+			setHeader(result, 0, 1, STRING); //last packet
+		}
+		else {
+			char* temp = strnsep_(&strBuf, 100);
+			result = initPacket(100, (unsigned char*)temp);
+			free(temp);
+			temp = NULL;
+			length -= 100;
+		}
+		if(i == 0)
+			setHeader(result, 1, 0, STRING); //first packet
+		else
+			setHeader(result, 0, 0, STRING);
+		enqueue(q, (void*)result);
+	}
+	free(strBuf);
+	strBuf = NULL;
+}
+
+void* decode(struct Queue* this) {
+	int len = this->size;
+	struct Packet** packets = (struct Packet**)malloc(sizeof(struct Packet*)*len);
+	void* result = NULL;
+	int i = 0;
+	for(i = 0; i < len; i++) {
+		packets[i] = (struct Packet*)dequeue(this);
+	}
+
+	switch(packets[0]->type) {
+	case STRING:
+		result = decodeString(packets, len);
+		break;
+	case CMD:
+		result = decodeCmd(packets, len);
+		break;
+	case PLAYLIST:
+		result = decodePlaylist(packets, len);
+		break;
+	default:
+		break;
+	}
+	for(i = 0; i < len ; i++ ) {
+		free(packets[i]);
+		packets[i] = NULL;
+	}
+	free(packets);
+	packets = NULL;
+	return result;
+}
+
+void* decodeString(struct Packets** p, int size) {
+
+	return NULL;
+}
+void* decodeCmd(struct Packets** p, int size) {
+
+	return NULL;
+}
+void* decodePlaylist(struct Packets** p, int size) {
+
+	return NULL;
+}

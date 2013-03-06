@@ -1,0 +1,34 @@
+/*
+ * Queue.c
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#include "Queue.h"
+
+struct Queue* initQueue() {
+	struct Queue* this = (struct Queue*)malloc(sizeof(struct Queue));
+	this->size = 0;
+	this->tail = null;
+	this->head = null;
+	return this;
+}
+
+void enqueue(struct Queue* this, void* obj) {
+	if(this == null || obj == null) return;
+	if(this->size == 0) {
+		this->head = (struct QueueData*)malloc(sizeof(struct QueueData));
+		this->tail = this;
+	} else {
+		this->tail->next = (struct Queue*)malloc(sizeof(Queue));
+		this->tail = this->tail->next;
+		this->tail->head = this->head;
+		this->tail->obj = obj;
+	}
+	this->size++;
+}
+
+void* dequeue(struct Queue* this) {
+	if(this == null) return null;
+}

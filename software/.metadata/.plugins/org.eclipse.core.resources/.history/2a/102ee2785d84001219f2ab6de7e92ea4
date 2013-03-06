@@ -1,0 +1,29 @@
+/*
+ * RS232.h
+ *
+ *  Created on: 2013-03-02
+ *      Author: danny
+ */
+
+#ifndef RS232_H_
+#define RS232_H_
+
+#include "Global.h"
+enum msgType;
+struct RS232 {
+	unsigned char data[50];
+	unsigned char parity;
+	struct Queue* sendPackets;
+	struct Queue* receivePackets;
+	enum States* stateMachine;
+	int ack, isRdySend, failReceive;
+};
+
+enum States {
+	checkClient = 0, sendStates = 1, waitClient = 2, sendData0 = 3, waitAck0 = 4, sendData1 = 5,
+	waitAck1 = 6, sendAck0 = 7, receiveData0 = 8, sendAck1 = 9, receiveData1 = 10
+};
+struct RS232 initRS232();
+int send(void*, enum msgType);
+unsigned char* sendStats();
+#endif /* RS232_H_ */

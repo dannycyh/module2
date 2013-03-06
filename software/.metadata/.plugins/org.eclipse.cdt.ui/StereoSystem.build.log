@@ -1,0 +1,8 @@
+
+**** Build of configuration Nios II for project StereoSystem ****
+
+make all 
+Info: Building ../StereoSystem_bsp/
+make --no-print-directory -C ../StereoSystem_bsp/
+[BSP build complete]
+[StereoSystem build complete]
