@@ -1,0 +1,65 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# Object files
+*.o
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+create-this-app
+Makefile
+*.cproject
+obj/
+*.map
+*.elf
+*.objdump
+*bsp/
+submodules/
+.qsys_edit/
+.DS_Store
+*.done
+*.cdf
+*.jdi
+*.pin
+*.qsf
+*.qpf
+*.qws
+*.summary
+*.bak
+*.html
+*.bsf
+*.rpt
+.metadata/
+db/
+incremental_db/
